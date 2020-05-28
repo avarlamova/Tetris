@@ -3,11 +3,27 @@ const height = 20;
 const elementssize = 30;
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
-// Calculate size of canvas from constants.
 ctx.canvas.width = width * elementssize;
 ctx.canvas.height = height * elementssize;
+ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+
+
 let grid = new Array (20);
+
+class Board {
+  grid;
+  
+  reset() {
+    this.grid = this.getEmptyBoard();
+  }
+  
+  getEmptyBoard() {
+    return Array.from(
+      {length: ROWS}, () => Array(COLS).fill(0)
+    );
+  }
+}
+
 let A = [0,0,1,
     0,0,1,
     0,1,1];
