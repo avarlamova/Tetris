@@ -1,63 +1,12 @@
-const width = 10;
-const height = 20;
-const elementssize = 30;
+//creating a grid for game
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-ctx.canvas.width = width * elementssize;
-ctx.canvas.height = height * elementssize;
-ctx.scale(BLOCK_SIZE, BLOCK_SIZE);
+const ctx = canvas.getContext('2d')
 
-
-let grid = new Array (20);
-
-class Board {
-  grid;
-  
-  reset() {
-    this.grid = this.getEmptyBoard();
-  }
-  
-  getEmptyBoard() {
-    return Array.from(
-      {length: ROWS}, () => Array(COLS).fill(0)
-    );
-  }
+for (i=0;i<121;i++) {
+let x = 10;
+let y = 10; 
+ctx.fillRect(x, x+10, y, y+10);
+x+=15;
+y+=15;
+console.log(x);
 }
-
-let A = [0,0,1,
-    0,0,1,
-    0,1,1];
-
-let B = [1,0,0,
-    1,0,0,
-    1,1,0];
-
-let C = [0,0,0,
-    0,1,0,
-    1,1,1];
-
-let D = [0,0,0,
-    0,1,1,
-    1,1,0];
-
-let E = [0,0,0,
-    1,1,0,
-    0,1,1];
-
-let F = [1,1,0,
-    1,1,0,
-    0,0,0];
-
-let G = [0,0,0,
-    1,1,1,
-    0,0,0];
-
-    //creating elements
-
-    for (y=0;y<height;y++){
-        for (x=0;x<width;x++) {
-            let square = document.createElement(div);
-            square.setAttribute("id", "square_x" + x + "y" + y);
-            document.body.append(square)
-        }
-    }
