@@ -12,6 +12,7 @@ function getBoard() {
     )
 }
 
+
 //creating piece
 class Piece {
     x;
@@ -25,13 +26,12 @@ class Piece {
       this.spawn();
     }
     
-    spawn() {
-    const  type = this.randomizeTetrominoType(colors.length);
-this.shape = shapes[type];
-this.color = colors[type];
-      
-      this.x = 4;
-      this.y = 0;
+  spawn() {
+    const tetrominoType = this.randomize();
+    this.shape = shapes[tetrominoType];
+    this.color = colors[tetrominoType];  
+    this.x = 4;
+    this.y = 0;
     }
 
 
@@ -47,11 +47,10 @@ this.color = colors[type];
     });
   }
 
-  randomizeTetrominoType(noOfTypes) {
-    return Math.floor(Math.random() * noOfTypes);
+  randomize() {
+    return Math.floor(Math.random() * shapes.length);
   }
   }
-
 
   function play() {
     getBoard();
@@ -59,4 +58,22 @@ this.color = colors[type];
     piece.draw();
   //board.piece = piece;
   }
-play()
+
+//making pieces move
+
+class move {
+  constructor(a) {
+    this.x = a.x;
+    this.y = a.y;
+  }
+}
+
+//when game is over
+function gameOver() {
+
+  ctx.fillStyle = 'black';
+  ctx.fillRect(0, 0, 100, 200);
+  ctx.font = '1px Arial';
+  ctx.fillStyle = 'yellow';
+  ctx.fillText('GAME OVER', 2, 7)
+}
