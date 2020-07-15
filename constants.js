@@ -12,10 +12,3 @@ const SHAPES = [
     [[7, 7, 0], [0, 7, 7], [0, 0, 0]]
 ];
 
-const KEYCODES = {
-    ESC: 27,
-    LEFT: 37,
-    UP: 38,
-    RIGHT: 39,
-    DOWN: 40,
-  }

@@ -22,17 +22,16 @@ class Piece {
 
     constructor(ctx) {
       this.ctx = ctx;
-      this.spawn();
+      this.spawn(4,0);
     }
     
-  spawn() {
+  spawn(x,y) {
     const tetrominoType = this.randomize();
+    this.x = x;
+    this.y = y;
     this.shape = SHAPES[tetrominoType];
     this.color = COLORS[tetrominoType];  
-    this.x = 4;
-    this.y = 0;
-    }
-
+    };
 
   draw() {
     this.ctx.fillStyle = this.color;
@@ -52,34 +51,37 @@ class Piece {
   }
 
 let board = getBoard();
+let piece = new Piece(ctx);
 
 function play() {
-    let board = getBoard();
-    let piece = new Piece(ctx);
     piece.draw();
     board.piece = piece;
   }
 
 //making pieces move
   moves = {
-    [KEYCODES.LEFT]:  a => ({ ...a, x: a.x - 1 }),
-    [KEYCODES.RIGHT]: a => ({ ...a, x: a.x + 1 }),
-    [KEYCODES.UP]:    a => ({ ...a, y: a.y + 1 })
+    [37]:  a => ({ ...a, x: a.x - 1 }), //left
+    [39]: a => ({ ...a, x: a.x + 1 }), //right
+    [38]: a => ({ ...a, y: a.y + 1 }) //up
   };
 
 document.addEventListener('keydown', event => {
-    if (moves[event.keyCode]) {  
-      event.preventDefault();
-      let a = moves[event.keyCode](board.piece);
-      if (board.valid(a)) {    
-        board.piece.move(a);
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
-        
-        board.piece.draw();
+      switch (event.keyCode) {
+        case 37:
+        piece.spawn(piece.x-1,piece.y);
+        piece.draw();
+        break;
+        case 39:
+          console.log(event.keyCode)
+          break;
+        case 38:
+          console.log(event.keyCode)
+          break;
+        default:
+        alert( "Нет таких значений" );
       }
     }
-  });
-
+  );
 
 //when game is over
 function gameOver() {
