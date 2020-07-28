@@ -6,10 +6,24 @@ ctx.canvas.height = ROWS * BLOCK_SIZE;
 
 ctx.scale(BLOCK_SIZE,BLOCK_SIZE);
 
-function getBoard() {
+//creating playboard
+class Board {
+    piece;
+    grid;
+
+    constructor(ctx) {
+      this.ctx = ctx;
+    }
+
+    getBoard(){
     return Array.from(
     {length: ROWS}, () => Array(COLUMNS).fill(0)
     )
+    }
+
+    clearBoard() {
+    this.grid = this.getBoard;
+    }
 }
 
 //creating piece
@@ -50,10 +64,11 @@ class Piece {
 
   }
 
-let board = getBoard();
-let piece = new Piece(ctx);
+let board = new Board;
+let piece = new Piece (ctx);
 
 function play() {
+    board.clearBoard();
     piece.draw();
     board.piece = piece;
   }
@@ -67,18 +82,23 @@ function play() {
 
 document.addEventListener('keydown', event => {
       switch (event.keyCode) {
+
         case 37:
         piece.spawn(piece.x-1,piece.y);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
         piece.draw();
         break;
+
         case 39:
-          console.log(event.keyCode)
-          break;
+        piece.spawn(piece.x + 1,piece.y);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
+        piece.draw();
+        break;
+
         case 38:
-          console.log(event.keyCode)
-          break;
-        default:
-        alert( "Нет таких значений" );
+        piece.spawn(piece.x,piece.y + 1);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
+        piece.draw();
       }
     }
   );
