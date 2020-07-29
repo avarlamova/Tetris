@@ -32,7 +32,7 @@ class Piece {
     y;
     color;
     shape;
-    type;
+    type = this.randomize();
 
     constructor(ctx) {
       this.ctx = ctx;
@@ -40,11 +40,10 @@ class Piece {
     }
     
   spawn(x,y) {
-    const tetrominoType = this.randomize();
     this.x = x;
     this.y = y;
-    this.shape = SHAPES[tetrominoType];
-    this.color = COLORS[tetrominoType];  
+    this.shape = SHAPES[this.type];
+    this.color = COLORS[this.type];  
     };
 
   draw() {
@@ -73,14 +72,8 @@ function play() {
     board.piece = piece;
   }
 
-//making pieces move
-  moves = {
-    [37]:  a => ({ ...a, x: a.x - 1 }), //left
-    [39]: a => ({ ...a, x: a.x + 1 }), //right
-    [38]: a => ({ ...a, y: a.y + 1 }) //up
-  };
-
 document.addEventListener('keydown', event => {
+      piece = board.piece;
       switch (event.keyCode) {
 
         case 37:
@@ -99,12 +92,18 @@ document.addEventListener('keydown', event => {
         piece.spawn(piece.x,piece.y + 1);
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
         piece.draw();
+        break;
+
+        case 27:
+        gameOver();
+        break;
       }
     }
   );
 
 //when game is over
 function gameOver() {
+  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
   ctx.fillStyle = 'black';
   ctx.fillRect(0, 0, 100, 200);
   ctx.font = '1px Arial';
