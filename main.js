@@ -24,6 +24,20 @@ class Board {
     clearBoard() {
     this.grid = this.getBoard;
     }
+
+    rotate(piece) {
+
+      let p = JSON.parse(JSON.stringify(piece));
+
+      for (let y = 0; y < p.shape.length; y++) {
+        for (let x = 0; x < y; x++) {
+          [p.shape[x][y], p.shape[y][x]] = [p.shape[y][x], p.shape[x][y]];
+        }
+      }
+
+      p.shape.forEach(row => row.reverse());
+      return p;
+    }
 }
 
 //creating piece
@@ -56,11 +70,9 @@ class Piece {
       });
     });
   }
-
   randomize() {
     return Math.floor(Math.random() * SHAPES.length);
   }
-
   }
 
 let board = new Board;
@@ -71,6 +83,7 @@ function play() {
     piece.draw();
     board.piece = piece;
   }
+//moving the pieces
 
 document.addEventListener('keydown', event => {
       piece = board.piece;
@@ -88,18 +101,30 @@ document.addEventListener('keydown', event => {
         piece.draw();
         break;
 
-        case 38:
+        case 40:
         piece.spawn(piece.x,piece.y + 1);
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); 
         piece.draw();
         break;
 
         case 27:
-        gameOver();
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        play();
+        break;
+
+        case 38:
+        board.rotate(piece);
         break;
       }
     }
   );
+
+function animate() {
+    this.piece.draw();
+    requestAnimationFrame(this.animate.bind(this));
+  }
+
+//pausing the game
 
 //when game is over
 function gameOver() {
