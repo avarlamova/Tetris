@@ -46,7 +46,8 @@ class Piece {
     y;
     color;
     shape;
-    type = this.randomize();
+    blocktype = this.randomize();
+    colortype = this.randomize();
 
     constructor(ctx) {
       this.ctx = ctx;
@@ -56,8 +57,8 @@ class Piece {
   spawn(x,y) {
     this.x = x;
     this.y = y;
-    this.shape = SHAPES[this.type];
-    this.color = COLORS[this.type];  
+    this.shape = SHAPES[this.blocktype];
+    this.color = COLORS[this.colortype];  
     };
 
   draw() {
@@ -118,11 +119,6 @@ document.addEventListener('keydown', event => {
       }
     }
   );
-
-function animate() {
-    this.piece.draw();
-    requestAnimationFrame(this.animate.bind(this));
-  }
 
 //pausing the game
 
